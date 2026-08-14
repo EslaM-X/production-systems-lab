@@ -1,0 +1,27 @@
+{
+  "benchmarks": [
+    {
+      "name": "BenchmarkRateLimitAllow",
+      "machine": "Windows 11, 12th Gen Intel Core i5-1235U",
+      "ns_per_op": 18.29,
+      "allocs_per_op": 0,
+      "bytes_per_op": 0
+    },
+    {
+      "name": "BenchmarkCircuitBreakerExecute",
+      "machine": "Windows 11, 12th Gen Intel Core i5-1235U",
+      "ns_per_op": 30.89,
+      "allocs_per_op": 0,
+      "bytes_per_op": 0
+    },
+    {
+      "name": "BenchmarkBreakerOpenFailFast",
+      "machine": "Windows 11, 12th Gen Intel Core i5-1235U",
+      "ns_per_op": 36.71,
+      "allocs_per_op": 0,
+      "bytes_per_op": 0
+    }
+  ],
+  "generated": "go test -bench=Benchmark -benchmem ./benchmarks",
+  "go_version": "go1.26.5 windows/amd64"
+}
