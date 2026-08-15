@@ -34,4 +34,5 @@ Verify() recomputes every hash and re-links prev_hash; any mutation breaks the c
 ```
 
 ## See also
+- `docs/failure-matrix.md` — every failure mode mapped to its control and test
 - `docs/methodology.md`

@@ -78,6 +78,13 @@ go test -bench=Benchmark -benchmem ./benchmarks
 
 Full results: `benchmarks/result.json`.
 
+## Documentation
+
+- [Failure matrix](docs/failure-matrix.md) - every failure mode, its control,
+  and the test that proves it (Evidence over claims)
+- [Architecture](docs/architecture.md) - flows and state machines of the core controls
+- [Methodology](docs/methodology.md)
+
 ## License
 
 Apache-2.0. See `LICENSE`.

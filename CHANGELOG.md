@@ -4,6 +4,11 @@ All notable changes to `production-systems-lab`.
 
 ## [Unreleased]
 
+### Added
+- `docs/failure-matrix.md`: every failure mode mapped to its control and the
+  unit test that proves it (Failure -> Control -> Evidence), with an honesty
+  boundary stating that rows exist only where `go test ./...` proves them.
+
 ## [v0.1.0] — 2026-08-14
 
 Initial release.
