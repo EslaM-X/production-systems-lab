@@ -8,6 +8,11 @@ All notable changes to `production-systems-lab`.
 - `docs/failure-matrix.md`: every failure mode mapped to its control and the
   unit test that proves it (Failure -> Control -> Evidence), with an honesty
   boundary stating that rows exist only where `go test ./...` proves them.
+- Architecture diagram (`docs/diagrams/production-systems.mmd`, rendered
+  inline in `docs/architecture.md`): request pipeline with failure/deny
+  branches, each stage mapped to the failure matrix and its tests. The wiring
+  is labelled as the operator's responsibility; every stage is an independent,
+  tested package.
 
 ## [v0.1.0] — 2026-08-14
 
