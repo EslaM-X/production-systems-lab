@@ -1,12 +1,70 @@
 # production-systems-lab
 
 Production-grade building blocks for distributed, financial, and API systems.
-Each package is small, dependency-free, tested, and documents the real-world
-failure mode it defends against.
+Small, dependency-free, tested Go packages — each one defends against a specific
+real-world failure mode.
 
-Designed and developed by EslaM-X.
+> **Designed and developed by [EslaM-X](https://github.com/EslaM-X).** Part of the
+> [engineering portfolio](https://github.com/EslaM-X/portfolio).
+
+---
+
+## Why this exists
+
+Systems fail in predictable ways: retries double-settle payments, forged webhooks
+replay, an overloaded downstream takes the whole service down, audit trails get
+tampered with. This lab is a reference implementation of the controls that stop
+each one — with the test that proves it (evidence over claims).
+
+## Demo (real run, ~2 seconds)
+
+One scenario — a payment gateway — exercising **auth → validation → idempotency →
+circuit breaker → audit** together. Run it yourself:
+
+```sh
+go run ./examples/payment-gateway
+```
+
+Actual output:
+
+```
+=== production-systems-lab demo: payment gateway ===
+
+auth: key verified for "merchant-42", RBAC payments:create granted
+idempotency [first call]: status=200 body={"settled":1999,"charge_id":"pay_123"} executions=1
+idempotency [retry  1   ]: status=200 body={"settled":1999,"charge_id":"pay_123"} executions=1
+idempotency [retry  2   ]: status=200 body={"settled":1999,"charge_id":"pay_123"} executions=1
+idempotency [conflict] : ERROR idempotency key already used with a different payload
+
+circuitbreaker [call 1]: downstream error (psp: timeout contacting acquirer)
+circuitbreaker [call 2]: downstream error (psp: timeout contacting acquirer)
+circuitbreaker [call 3]: downstream error (psp: timeout contacting acquirer)
+circuitbreaker [call 4]: FAIL FAST (circuit open) - downstream not touched
+circuitbreaker [call 5]: FAIL FAST (circuit open) - downstream not touched
+
+audit: integrity verified: true
+audit: 3 entries (CSV preview)
+       2026-08-15T05:43:52+03:00,merchant-42,payments.charge.request,pay_123,29af3d44...
+       2026-08-15T05:43:52+03:00,merchant-42,payments.charge.settled,pay_123,110b130d...
+```
+
+Notice the three things this lab exists to demonstrate: retries **did not**
+re-execute the payment (`executions=1`), the breaker **fail-fast** while the PSP
+was down, and the audit trail **verified** intact.
+
+## Quick start
+
+```sh
+go test ./...            # every package, its tests
+go run ./examples/payment-gateway   # the demo above
+```
+
+Requires Go 1.22+. No external dependencies — the whole lab runs on the standard
+library.
 
 ## Packages
+
+Each package is a control, its failure mode, and its defence:
 
 ### Reliability
 | Package | Failure mode | Defence |
@@ -33,42 +91,9 @@ Designed and developed by EslaM-X.
 | --- | --- | --- |
 | `webhook` | Forged or replayed webhook deliveries | HMAC-SHA256 signatures, constant-time verification |
 
-## Design principles
-- **Zero external dependencies** — the whole lab runs on the standard library.
-- **Swap-friendly** — storage (idempotency, audit) is behind interfaces so the
-  in-memory implementation can be replaced with Postgres/Redis.
-- **Tested** — every package ships with unit tests (`go test ./...`).
+## Evidence
 
-## Usage
-
-```go
-gw := idempotency.NewGateway(idempotency.NewMemStore(30*time.Minute))
-status, body, err := gw.Execute(ctx, idemKey, payload, op)
-```
-
-```go
-br := circuitbreaker.New(circuitbreaker.DefaultConfig())
-if err := br.Execute(downstreamCall); err == circuitbreaker.ErrOpen {
-    // fail fast, shed load
-}
-```
-
-```go
-log := audit.New()
-log.Append("alice", "payments.approve", "pay_123")
-if !log.Verify() {
-    // someone tampered with the chain
-}
-```
-
-## Run
-
-```sh
-go test ./...
-go test -bench=Benchmark -benchmem ./benchmarks
-```
-
-## Benchmarks (Windows 11, i5-1235U, Go 1.26)
+### Benchmarks (Windows 11, i5-1235U, Go 1.26)
 
 | Benchmark | ns/op | allocs/op |
 | --- | --- | --- |
@@ -78,12 +103,25 @@ go test -bench=Benchmark -benchmem ./benchmarks
 
 Full results: `benchmarks/result.json`.
 
+### Design principles
+- **Zero external dependencies** — the whole lab runs on the standard library.
+- **Swap-friendly** — storage (idempotency, audit) is behind interfaces so the
+  in-memory implementation can be replaced with Postgres/Redis.
+- **Tested** — every package ships with unit tests (`go test ./...`).
+
 ## Documentation
 
 - [Failure matrix](docs/failure-matrix.md) - every failure mode, its control,
   and the test that proves it (Evidence over claims)
 - [Architecture](docs/architecture.md) - flows and state machines of the core controls
 - [Methodology](docs/methodology.md)
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Security issues: [SECURITY.md](SECURITY.md).
+
+If this work is useful to you, consider starring the repository — it helps the
+project reach more engineers.
 
 ## License
 
