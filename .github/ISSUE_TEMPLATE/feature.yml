@@ -1,0 +1,26 @@
+name: Feature request
+description: Propose a new capability for the lab
+title: "feat: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem does this solve? Who hits it?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: A concrete description of the new capability and its contract.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: How will we verify it?
+      description: The tests or benchmarks that would prove it works.
+    validations:
+      required: true

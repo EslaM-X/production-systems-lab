@@ -1,0 +1,16 @@
+labels: [discussion]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Welcome to the production-systems-lab discussions
+
+        Reliability patterns in production systems: idempotency, replay,
+        circuit breakers, retries, auth, audit, and observability.
+
+        - **Q&A** — ask anything about installing, running, or extending the lab.
+        - **Ideas** — proposals for new reliability patterns, benchmarks, or hosted tiers.
+        - **Show and tell** — share the systems you build with it.
+        - **Feedback** — what gets in the way of using it in production?
+
+        Before posting, skim the [README](../../README.md) and [docs](../../docs).
