@@ -1,0 +1,12 @@
+version: "1.0"
+project: "EslaM-X/production-systems-lab"
+artifacts:
+  - README.md
+  - go.mod
+  - LICENSE
+lockfiles:
+  - go.sum
+claims:
+  - "Built from the recorded git commit"
+  - "Artifacts have known sha256 digests"
+  - "Dependency lockfile is committed"

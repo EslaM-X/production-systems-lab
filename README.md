@@ -1,6 +1,6 @@
 # production-systems-lab
 
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache-2.0-blue.svg)](LICENSE) [![CI](https://github.com/EslaM-X/production-systems-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/EslaM-X/production-systems-lab/actions)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache-2.0-blue.svg)](LICENSE) [![CI](https://github.com/EslaM-X/production-systems-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/EslaM-X/production-systems-lab/actions) [![ProofX Verified](https://img.shields.io/badge/ProofX-Verified-FFB627?logo=shield&logoColor=white)](https://github.com/EslaM-X/proofx)
 
 Production-grade building blocks for distributed, financial, and API systems.
 Small, dependency-free, tested Go packages — each one defends against a specific

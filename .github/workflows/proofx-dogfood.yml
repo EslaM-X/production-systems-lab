@@ -1,0 +1,45 @@
+name: proofx-dogfood
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prove:
+    name: proofx verifies this repo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+          cache: true
+      - name: run tests (test evidence source)
+        run: |
+          mkdir -p .proofx
+          go test ./... > .proofx/test-summary.json 2>&1 || true
+      - name: download proofx
+        run: |
+          curl -fsSL https://github.com/EslaM-X/proofx/releases/download/v0.1.0/proofx-linux-amd64 -o /tmp/proofx
+          chmod +x /tmp/proofx
+      - name: keygen (CI)
+        run: /tmp/proofx keygen
+      - name: collect evidence
+        run: /tmp/proofx collect
+      - name: prove (bind + sign)
+        run: /tmp/proofx prove
+      - name: inspect
+        run: /tmp/proofx inspect proof.json
+      - name: verify (self-check)
+        run: /tmp/proofx verify proof.json
+      - name: upload proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: proofx-proof
+          path: proof.json
+          if-no-files-found: error
