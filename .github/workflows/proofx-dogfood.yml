@@ -25,7 +25,7 @@ jobs:
           go test ./... > .proofx/test-summary.json 2>&1 || true
       - name: download proofx
         run: |
-          curl -fsSL https://github.com/EslaM-X/proofx/releases/download/v0.1.0/proofx-linux-amd64 -o /tmp/proofx
+          curl -fsSL https://github.com/EslaM-X/proofx/releases/download/v0.2.0/proofx-linux-amd64 -o /tmp/proofx
           chmod +x /tmp/proofx
       - name: keygen (CI)
         run: /tmp/proofx keygen
@@ -43,3 +43,4 @@ jobs:
           name: proofx-proof
           path: proof.json
           if-no-files-found: error
+
