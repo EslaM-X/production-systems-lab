@@ -1,0 +1,101 @@
+{
+  "proofVersion": "1.0",
+  "id": "PX-ef80a19c",
+  "project": {
+    "name": "EslaM-X/production-systems-lab",
+    "repository": "EslaM-X/production-systems-lab"
+  },
+  "subject": {
+    "commit": "ffa755a50ff83c7197da0df5d36119920396b737",
+    "branch": "main",
+    "repository": "EslaM-X/production-systems-lab"
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Built from the recorded git commit",
+      "status": "evidenced"
+    },
+    {
+      "id": "c2",
+      "text": "Artifacts have known sha256 digests",
+      "status": "evidenced"
+    },
+    {
+      "id": "c3",
+      "text": "Dependency lockfile is committed",
+      "status": "evidenced"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "artifact",
+      "type": "artifact",
+      "source": "sha256 of configured artifacts",
+      "timestamp": "2026-08-17T10:05:01Z",
+      "payload": "{\"files\":{\"LICENSE\":\"f06177f90e2399620eb3b5d80e705d3c7217b6b4457f5452d27b2b94dba88022\",\"README.md\":\"6e19f350c5a68621793118772bd2e2b19ab8a44157faec0940769264da1f2bca\",\"go.mod\":\"a9c36763bdfa1c57f880de653ddb803dcf2f127e3a549e25ce05eded1f1cb772\"}}",
+      "digest": "752cbce618bbd2ff922be19b5145a96974ebcf3577e4bb00d4e2f2a5b8deeea9"
+    },
+    {
+      "id": "dependencies",
+      "type": "dependencies",
+      "source": "dependency lockfile digest",
+      "timestamp": "2026-08-17T10:05:01Z",
+      "payload": "{\"lockfiles\":{\"go.sum\":\"\"}}",
+      "digest": "30a982c497a2ec51f03cb425834470e183b272e5bf9edf061dd2d48cd9defc39"
+    },
+    {
+      "id": "environment",
+      "type": "environment",
+      "source": "build toolchain + os",
+      "timestamp": "2026-08-17T10:05:01Z",
+      "payload": "{\"go_version\":\"go version go1.26.5 windows/amd64\",\"node_version\":\"v24.18.0\",\"os\":\"windows\"}",
+      "digest": "656ba252b0775ce878ec6ecc7a99745231ddd6facf195316211ba5e0f63f275d"
+    },
+    {
+      "id": "git",
+      "type": "git",
+      "source": "git: https://github.com/EslaM-X/production-systems-lab.git",
+      "timestamp": "2026-08-17T10:05:01Z",
+      "payload": "{\"branch\":\"main\",\"commit\":\"ffa755a50ff83c7197da0df5d36119920396b737\",\"commit_time\":\"2026-08-16T10:41:07+03:00\",\"dirty\":true,\"repository\":\"https://github.com/EslaM-X/production-systems-lab.git\"}",
+      "digest": "6f35d5bde8cc1ef5c79784df00c2335164a9f09f4dd3801eb4f593663cd4f6a0"
+    }
+  ],
+  "binding": {
+    "algorithm": "sha256",
+    "root": "ef80a19cef71e7c319eb5b481b503c8a8e78c21e3bd0960b1554e5131ce2ce7d",
+    "entries": [
+      {
+        "id": "artifact",
+        "digest": "752cbce618bbd2ff922be19b5145a96974ebcf3577e4bb00d4e2f2a5b8deeea9"
+      },
+      {
+        "id": "dependencies",
+        "digest": "30a982c497a2ec51f03cb425834470e183b272e5bf9edf061dd2d48cd9defc39"
+      },
+      {
+        "id": "environment",
+        "digest": "656ba252b0775ce878ec6ecc7a99745231ddd6facf195316211ba5e0f63f275d"
+      },
+      {
+        "id": "git",
+        "digest": "6f35d5bde8cc1ef5c79784df00c2335164a9f09f4dd3801eb4f593663cd4f6a0"
+      }
+    ]
+  },
+  "signature": {
+    "algorithm": "ed25519",
+    "publicKey": "wB3XeiMhQR0dC5s5P/PXohMpwcw1MmEDDvZtuDUtJtI=",
+    "value": "CBuQwynXwWlnm4WuYSZnpHHFy6oFzTIEUlo2/UJ1DtxJ7gAietcgGsy88UlCH0zxW/U2BZK1M4TrYDQUfaz/AQ=="
+  },
+  "coverage": {
+    "total": 4,
+    "verified": 4,
+    "score": 100
+  },
+  "createdAt": "2026-08-17T10:05:01Z",
+  "builder": {
+    "name": "proofx",
+    "version": "0.2.1"
+  }
+}
